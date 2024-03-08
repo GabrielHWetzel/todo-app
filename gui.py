@@ -14,17 +14,15 @@ input_box = sg.InputText(tooltip="Enter to-do",
 list_box = sg.Listbox(values=todos,
                       key='todos',
                       enable_events=True,
-                      size=(45, 0))
+                      size=(45, 10))
 input_column = sg.Column([[input_box],
-                          [list_box],
-                          [sg.VPush()],
-                          [clock]])
+                          [list_box]])
 
 # Buttons
-add_button = sg.Button("Add", expand_x=True)
-edit_button = sg.Button("Edit", expand_x=True)
-complete_button = sg.Button("Complete", expand_x=True)
-exit_button = sg.Button("Exit", expand_x=True)
+add_button = sg.Button("Add", expand_x=True, mouseover_colors="Grey")
+edit_button = sg.Button("Edit", expand_x=True, mouseover_colors="Grey")
+complete_button = sg.Button("Complete", expand_x=True, mouseover_colors="Grey")
+exit_button = sg.Button("Exit", expand_x=True, mouseover_colors="Grey")
 
 button_column = sg.Column([[add_button],
                            [edit_button],
@@ -34,7 +32,9 @@ button_column = sg.Column([[add_button],
 
 window = sg.Window('To-do App',
                    layout=[[label],
-                       [input_column, button_column]],
+                           [input_column, button_column],
+                           [sg.VPush()],
+                           [clock]],
                    font=('Helvetica', 10))
 
 while True:
@@ -49,19 +49,22 @@ while True:
 
                 functions.set_file(todos)
                 window["todos"].update(values=todos)
+                window['todo'].update('')
         case "Edit":
             try:
                 index = todos.index(values['todos'][0])
-                todos[index] = values['todo']
+                todos[index] = values['todo'].capitalize()
 
                 functions.set_file(todos)
                 window["todos"].update(values=todos)
+                window['todo'].update('')
             except IndexError:
                 sg.Popup("Please select an item first", font=('Helvetica', 10))
                 continue
         case "Complete":
             try:
                 todos.remove(values['todos'][0])
+
                 functions.set_file(todos)
                 window["todos"].update(values=todos)
                 window['todo'].update('')
