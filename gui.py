@@ -27,19 +27,20 @@ while True:
     match event:
         # Button actions
         case "Add":
-            if not values['todo'] == "":
-                todos.append(values['todo'])
-                window["todos"].update(values=todos)
+            if not values['todo'].strip() == "":
+                todos.append(values['todo'].strip().capitalize())
+
                 functions.set_file(todos)
+                window["todos"].update(values=todos)
         case "Edit":
-            todo_to_edit = values['todos'][0]
-            new_todo = values['todo']
+            try:
+                index = todos.index(values['todos'][0])
+                todos[index] = values['todo']
 
-            index = todos.index(todo_to_edit)
-            todos[index] = new_todo
-
-            functions.set_file(todos)
-            window["todos"].update(values=todos)
+                functions.set_file(todos)
+                window["todos"].update(values=todos)
+            except IndexError:
+                continue
         # Other actions
         case "todos":
             window['todo'].update(value=values['todos'][0])

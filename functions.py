@@ -12,7 +12,7 @@ def get_file(filepath: str = FILEPATH):
 
 def set_file(items: list, filepath: str = FILEPATH):
     """Writes a List to a text file with linebreaks."""
-    # Local variable to not mess up the global todo for some reason
+    # Local variable to not mess up the global items input for some reason. Also removes the need to enumerate.
     new_items = []
     for item in items:
         new_items.append(item + "\n")
