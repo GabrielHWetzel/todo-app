@@ -12,7 +12,7 @@ while True:
             if not todo:
                 todo = input("Enter a todo to add: ").strip().capitalize()
 
-            todos.append(todo + "\n")
+            todos.append(todo)
             functions.set_file(todos)
 
         case 'show':
@@ -21,7 +21,6 @@ while True:
             # No args. Shows entire List
             if not todo:
                 for index, item in enumerate(todos):
-                    item = item.strip('\n')
                     print(f"{index + 1}-{item}")
 
             # Searches items to Show, int or string
@@ -34,8 +33,7 @@ while True:
                 except (ValueError, IndexError):
                     exists = False
                     for index, item in enumerate(todos):
-                        if item == todo + "\n":
-                            item = item.strip('\n')
+                        if item == todo:
                             print(f"{index + 1}-{item}")
                             exists = True
                     if not exists:
@@ -50,13 +48,13 @@ while True:
                 if index == -1:
                     index = len(todos)-1
                 print(f"Editing: {index+1}-{todos[index]}")
-                todos[index] = input("Enter new todo: ").capitalize() + "\n"
+                todos[index] = input("Enter new todo: ").capitalize()
                 functions.set_file(todos)
             except (ValueError, IndexError):
                 try:
-                    index = todos.index(todo + '\n')
+                    index = todos.index(todo)
                     print(f"Editing: {index+1}-{todos[index]}")
-                    todos[index] = input("Enter new todo: ").capitalize() + "\n"
+                    todos[index] = input("Enter new todo: ").capitalize()
                     functions.set_file(todos)
                 except ValueError:
                     print("Todo doesn't exist.")
@@ -74,7 +72,7 @@ while True:
                 functions.set_file(todos)
             except (ValueError, IndexError):
                 try:
-                    index = todos.index(todo + '\n')
+                    index = todos.index(todo)
                     print(f"Completed: {index+1}-{todos.pop(index)}")
                     functions.set_file(todos)
                 except ValueError:

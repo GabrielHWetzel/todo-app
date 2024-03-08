@@ -25,12 +25,12 @@ while True:
     event, values = window.read()
     print(event, values)
     match event:
-        # Button Functions
+        # Button actions
         case "Add":
             if not values['todo'] == "":
-                todos.append(values['todo'] + "\n")
-                functions.set_file(todos)
+                todos.append(values['todo'])
                 window["todos"].update(values=todos)
+                functions.set_file(todos)
         case "Edit":
             todo_to_edit = values['todos'][0]
             new_todo = values['todo']
@@ -40,6 +40,7 @@ while True:
 
             functions.set_file(todos)
             window["todos"].update(values=todos)
+        # Other actions
         case "todos":
             window['todo'].update(value=values['todos'][0])
         # Quit
