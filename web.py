@@ -7,6 +7,7 @@ todos = functions.get_file()
 def add_todo():
     todos.append(st.session_state["new_todo"].capitalize())
     functions.set_file(todos)
+    st.session_state["new_todo"] = ""
 
 
 st.title("List of to-dos")
